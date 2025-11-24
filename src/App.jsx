@@ -64,7 +64,7 @@ export default function App() {
         </section>
       </main>
       <footer className="footer">
-        <small>Built with ❤ — ESP → Node/Socket.IO → React</small>
+        <small>Built with MO and JO — ESP → Node/Socket.IO → React</small>
       </footer>
     </div>
   );
