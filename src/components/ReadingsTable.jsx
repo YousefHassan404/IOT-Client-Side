@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 
@@ -22,6 +23,10 @@ const Sparkline = ({ data, color }) => {
     </div>
   );
 };
+=======
+// components/ReadingsTable.js
+import React from 'react';
+>>>>>>> bdbfb70769a676b967b381a70d90cf82866e1e21
 
 export default function ReadingsTable({ readings }) {
   return (
@@ -44,15 +49,21 @@ export default function ReadingsTable({ readings }) {
               <th>Sensor ID</th>
               <th>Distance</th>
               <th>Temperature</th>
+<<<<<<< HEAD
               <th>Temp Trend</th>
               <th>Humidity</th>
               <th>Gas</th>
               <th>Gas Trend</th>
+=======
+              <th>Humidity</th>
+              <th>Gas</th>
+>>>>>>> bdbfb70769a676b967b381a70d90cf82866e1e21
               <th>LED</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
+<<<<<<< HEAD
             {readings.map((r, i) => {
               // Get last 10 readings for trend (from this point backwards in the array)
               const trendRange = readings.slice(i, i + 10).reverse();
@@ -106,6 +117,48 @@ export default function ReadingsTable({ readings }) {
                 </tr>
               );
             })}
+=======
+            {readings.map((r, i) => (
+              <tr key={i}>
+                <td className="timestamp-cell">
+                  {new Date(r.timestamp).toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    second: '2-digit' 
+                  })}
+                </td>
+                <td>
+                  <span className="sensor-id">{r.sensorId}</span>
+                </td>
+                <td className={`data-cell ${r.distance > 50 ? 'warning-cell' : ''}`}>
+                  <span className="data-value">{r.distance}</span>
+                  <span className="data-unit">cm</span>
+                </td>
+                <td className={`data-cell ${r.temperature > 30 ? 'warning-cell' : ''}`}>
+                  <span className="data-value">{r.temperature}</span>
+                  <span className="data-unit">°C</span>
+                </td>
+                <td className="data-cell">
+                  <span className="data-value">{r.humidity}</span>
+                  <span className="data-unit">%</span>
+                </td>
+                <td className={`data-cell ${r.gas > 2 ? 'danger-cell' : ''}`}>
+                  <span className="data-value">{r.gas}</span>
+                  <span className="data-unit">V</span>
+                </td>
+                <td>
+                  <div className={`status-badge ${r.ledState === 'on' ? 'badge-active' : 'badge-inactive'}`}>
+                    {r.ledState === 'on' ? 'ON' : 'OFF'}
+                  </div>
+                </td>
+                <td>
+                  <div className={`status-badge ${r.status === 'OK' ? 'badge-success' : 'badge-error'}`}>
+                    {r.status}
+                  </div>
+                </td>
+              </tr>
+            ))}
+>>>>>>> bdbfb70769a676b967b381a70d90cf82866e1e21
           </tbody>
         </table>
       </div>
