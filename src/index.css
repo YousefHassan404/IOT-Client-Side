@@ -1,0 +1,919 @@
+:root {
+  /* ألوان أساسية */
+  --primary: #4f46e5;
+  --primary-light: #818cf8;
+  --secondary: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  /* Theme Accents */
+  --accent-safe: #06b6d4; /* Vibrant Cyan/Teal */
+  --accent-warning: #f59e0b; /* Amber */
+  --accent-danger: #ef4444; /* Crimson/Red */
+
+  /* ألوان محايدة - Light Theme */
+  --bg-primary: #f8fafc; /* off-white */
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --border: #e2e8f0;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+
+  /* زوايا */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* أحجام الخطوط للجوال */
+  --font-xs: 0.75rem;  /* 12px */
+  --font-sm: 0.875rem; /* 14px */
+  --font-base: 1rem;   /* 16px */
+  --font-lg: 1.125rem; /* 18px */
+  --font-xl: 1.25rem;  /* 20px */
+  --font-2xl: 1.5rem;  /* 24px */
+
+  /* مسافات للجوال */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.25rem;
+  --space-xl: 1.5rem;
+}
+
+/* Reset وتخطيط عام */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px; /* تصغير الخط الأساسي للجوال */
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%; /* منع تكبير النص في iOS */
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden; /* منع التمرير الأفقي */
+}
+
+/* Header مبسط ومحسّن للجوال */
+.app-header {
+  background: #0f172a; /* Deep dark blue to match ProjectOverview */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 2rem;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Strict gap as requested */
+}
+
+.app-title {
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.app-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-sm);
+}
+
+.header-right {
+  margin-left: auto;
+}
+
+.header-meta {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meta-label {
+  color: rgba(255, 255, 255, 0.5); /* Faded color for professional metrics */
+  font-size: var(--font-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.meta-value {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--secondary);
+  flex-shrink: 0;
+}
+
+@keyframes pulse-live {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.status-indicator.connected {
+  animation: pulse-live 2s infinite;
+  background: var(--accent-safe);
+}
+
+.status-text {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Main Content محسّن للجوال */
+.app-main {
+  flex: 1;
+  padding: var(--space-sm);
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Control Panel محسّن للجوال */
+.control-panel {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  border: 1px solid var(--border);
+  width: 100%;
+}
+
+.panel-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  color: var(--text-primary);
+}
+
+.control-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.control-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  width: 100%;
+}
+
+.control-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.control-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: var(--font-sm);
+}
+
+.control-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--font-base);
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+  width: 100%;
+}
+
+.control-btn {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: white;
+  color: var(--text-primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: var(--font-sm);
+  text-align: center;
+  touch-action: manipulation; /* تحسين اللمس */
+}
+
+.control-btn:hover,
+.control-btn:active {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.control-btn.active {
+  background: rgba(6, 182, 212, 0.2); /* Brighter cyan/teal background */
+  color: var(--accent-safe);
+  border: 1px solid var(--accent-safe);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px);
+}
+
+.slider-container {
+  margin: var(--space-md) 0;
+  width: 100%;
+}
+
+.slider-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.slider-label {
+  font-weight: 500;
+  font-size: var(--font-sm);
+}
+
+.angle-value {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: var(--font-base);
+}
+
+.servo-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e2e8f0;
+  outline: none;
+  margin: var(--space-md) 0;
+  -webkit-appearance: none;
+}
+
+.servo-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.servo-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.angle-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+
+.angle-btn {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: white;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: var(--font-sm);
+  flex: 1;
+  min-width: 60px;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.angle-btn:hover,
+.angle-btn:active {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+/* Dashboard Cards محسّنة للجوال */
+.dashboard-cards {
+  margin-bottom: var(--space-lg);
+  width: 100%;
+}
+
+.section-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card-content {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.card-title {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.card-value {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+  line-height: 1.2;
+}
+
+.card-subtext {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+.app-header .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-header .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.chart-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  width: 100%;
+  overflow: hidden;
+}
+
+.chart-header {
+  margin-bottom: var(--space-md);
+}
+
+.chart-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.chart-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+}
+
+.sensor-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+
+.sensor-toggle {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: white;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: var(--font-sm);
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.sensor-toggle.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.sensor-toggle:hover,
+.sensor-toggle:active {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Table محسّن للجوال */
+.data-table-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* تمرير سلس على iOS */
+  width: 100%;
+}
+
+.table-header {
+  margin-bottom: var(--space-md);
+}
+
+.table-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.table-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px;
+  font-size: var(--font-sm);
+}
+
+.data-table th {
+  text-align: left;
+  padding: var(--space-sm);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--font-xs);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--font-sm);
+}
+
+.data-table tr:hover {
+  background: var(--bg-secondary);
+}
+
+/* Footer محسّن للجوال */
+.app-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: var(--space-md) var(--space-sm);
+  text-align: center;
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer-text {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* تحسينات عامة للجوال */
+.btn {
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-size: var(--font-base);
+  width: 100%;
+  touch-action: manipulation;
+  min-height: 44px; /* ارتفاع مناسب للمس */
+}
+
+.btn:hover,
+.btn:active {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--text-secondary);
+}
+
+/* تأثيرات خفيفة ومحسّنة للجوال */
+.card:hover,
+.control-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+/* Media Queries إضافية للجوال */
+
+/* هواتف صغيرة جداً */
+@media (max-width: 320px) {
+  html {
+    font-size: 13px;
+  }
+  
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .control-card {
+    padding: var(--space-sm);
+  }
+}
+
+/* هواتف متوسطة وكبيرة */
+@media (min-width: 480px) and (max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .app-header {
+    padding: var(--space-md);
+  }
+  
+  .app-main {
+    padding: var(--space-md);
+  }
+  
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .connection-status {
+    width: auto;
+    margin-top: 0;
+  }
+  
+  .control-buttons {
+    flex-direction: row;
+  }
+  
+  .control-btn {
+    width: auto;
+    flex: 1;
+  }
+}
+
+/* أجهزة لوحية وصغيرة */
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  
+  .app-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+  }
+  
+  .control-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .control-buttons {
+    flex-direction: row;
+  }
+  
+  .control-btn {
+    flex: 1;
+  }
+  
+  .slider-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* تحسينات للوضع الأفقي على الجوال */
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-header {
+    padding: var(--space-sm);
+  }
+  
+  .control-panel {
+    padding: var(--space-sm);
+  }
+  
+  .control-card {
+    padding: var(--space-sm);
+  }
+  
+  .card {
+    padding: var(--space-sm);
+  }
+}
+
+/* دعم الظلام (Dark Mode) */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.6); /* Glassmorphism base */
+  --border: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+}
+
+[data-theme="dark"] .control-card,
+[data-theme="dark"] .data-table-container,
+[data-theme="dark"] .chart-container,
+[data-theme="dark"] .control-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .connection-status {
+  background: #334155;
+}
+
+[data-theme="dark"] .control-btn,
+[data-theme="dark"] .angle-btn,
+[data-theme="dark"] .sensor-toggle {
+  background: #334155;
+  color: var(--text-primary);
+  border-color: #475569;
+}
+
+[data-theme="dark"] .servo-slider {
+  background: #475569;
+}
+
+/* تحسينات للأجهزة التي تدعم hover */
+@media (hover: hover) and (pointer: fine) {
+  .control-btn,
+  .angle-btn,
+  .sensor-toggle {
+    min-height: auto;
+  }
+}
+
+/* منع التكبير على حقول الإدخال في iOS */
+input[type="text"],
+input[type="number"],
+textarea {
+  font-size: 16px !important;
+}
+
+/* -------------------------------------
+   Project Overview (Phase 2)
+------------------------------------- */
+.project-overview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .project-overview {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.overview-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center; /* Center items for elegance */
+  text-align: center;
+}
+
+.overview-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  background: linear-gradient(to right, var(--primary), var(--accent-safe));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.overview-description {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.speech-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: fit-content;
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-base);
+  border-radius: 30px;
+  margin-top: var(--space-md);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-danger {
+  background: var(--accent-danger) !important;
+  color: white;
+}
+
+.overview-illustration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.illustration-placeholder {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  color: var(--text-secondary);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.illustration-graphic {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.circle-1 {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  border: 4px solid var(--primary);
+  opacity: 0.1;
+}
+
+.circle-2 {
+  position: absolute;
+  top: 20px; left: 20px; right: 20px; bottom: 20px;
+  border-radius: 50%;
+  border: 4px solid var(--accent-safe);
+  opacity: 0.3;
+}
+
+.circle-3 {
+  position: absolute;
+  top: 40px; left: 40px; right: 40px; bottom: 40px;
+  border-radius: 50%;
+  border: 4px solid var(--accent-warning);
+  opacity: 0.5;
+}
+
+/* -------------------------------------
+   Floating Tab (Phase 2)
+------------------------------------- */
+.floating-tab {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  color: white;
+  padding: var(--space-lg) var(--space-xs);
+  border-radius: 8px 0 0 8px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.2s ease;
+  box-shadow: -4px 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+}
+
+.floating-tab:hover {
+  background: var(--primary-light);
+  padding-right: var(--space-sm);
+}
+
+.tab-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 600;
+  letter-spacing: 2px;
+  transform: rotate(180deg);
+}
+
+[data-theme="dark"] .floating-tab {
+  background: rgba(79, 70, 229, 0.8); /* Primary semi-transparent */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-right: none;
+}
